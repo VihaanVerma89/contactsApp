@@ -1,23 +1,28 @@
 package com.example.contactsapp
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
+import android.provider.ContactsContract
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 
-class MainActivity : AppCompatActivity() {
+class ContactsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_contacts)
         setSupportActionBar(findViewById(R.id.toolbar))
+        initFragment()
+    }
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+    private fun initFragment() {
+        val fragMan: FragmentManager = supportFragmentManager
+        val fragTransaction: FragmentTransaction = fragMan.beginTransaction()
+        val f = ContactFragment.newInstance()
+        fragTransaction.replace(R.id.fragment_fl, f)
+        fragTransaction.commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
